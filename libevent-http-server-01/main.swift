@@ -14,11 +14,18 @@ let HTTPD_PORT: UInt16 = 8080
 
 func req_handler(req: UnsafeMutablePointer<evhttp_request>, arg: UnsafeMutablePointer<Void>) {
     
-    if req.memory.type != EVHTTP_REQ_GET {
-        evhttp_send_error(req, HTTP_BADREQUEST, "Available GET only")
-    } else {
-        evhttp_send_error(req, HTTP_NOTFOUND, "Not Found")
+    let evbuf = evbuffer_new()
+    if evbuf == nil {
+        evhttp_send_error(req, HTTP_SERVUNAVAIL, "Failed to create buffer")
+        return
     }
+    
+    let message = "Hello world"
+    evhttp_add_header(req.memory.output_headers, "Content-Type", "text/plain")
+    evhttp_add_header(req.memory.output_headers, "Content-Length", "\(message.utf8.count)")
+    evbuffer_add(evbuf, message, message.utf8.count)
+    evhttp_send_reply(req, HTTP_OK, "", evbuf)
+    evbuffer_free(evbuf)
 }
 
 
