@@ -1,0 +1,19 @@
+PODS:
+  - libevent (0.1.1)
+
+DEPENDENCIES:
+  - libevent (from `https://github.com/sora0077/libevent.git`)
+
+EXTERNAL SOURCES:
+  libevent:
+    :git: https://github.com/sora0077/libevent.git
+
+CHECKOUT OPTIONS:
+  libevent:
+    :commit: 511d98e10be2e54dead42495e2de1a8fab84c9ab
+    :git: https://github.com/sora0077/libevent.git
+
+SPEC CHECKSUMS:
+  libevent: 362ef8da3c378bf8a5f5b9f4fb85c78f9f8ed43f
+
+COCOAPODS: 0.39.0
